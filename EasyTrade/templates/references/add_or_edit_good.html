@@ -1,0 +1,20 @@
+﻿<script>
+    app.controller('add-or-edit-good-ctrl', function ($scope, $uibModalInstance) {
+        $scope.cancel = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+    });
+</script>
+
+<form ng-controller="add-or-edit-good-ctrl">
+    <div class="modal-header">
+        <h3 class="modal-title">I'm a modal!</h3>
+    </div>
+    <div class="modal-body">
+        vaso beruashvili
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button">OK</button>
+        <button class="btn btn-warning" type="button">Cancel</button>
+    </div>
+</form>

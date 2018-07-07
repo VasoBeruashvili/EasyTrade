@@ -1,0 +1,48 @@
+﻿@model User
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.title</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/ress/sb-admin-2.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/ress/custom.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="panel panel-default" style="margin-top: 150px;">
+                    <div class="panel-heading" style="padding-top: 10px; padding-bottom: 10px;">
+                        <span style="font-size: 14px;"><img src="~/Content/imgs/logo.png" width="30" height="30" /> @EasyTrade.Resources.Translator.SignIn</span>
+                    </div>
+                    <div class="panel-body">
+                        @using (Html.BeginForm("login", "account", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            <section>
+                                @if (ViewBag.Error != null)
+                                {
+                                    <div class="alert small alert-danger">
+                                        @ViewBag.Error
+                                    </div>
+                                }
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.UserName, new { id = "userName", placeholder = EasyTrade.Resources.Translator.UserName, @class = "form-control input", autofocus = true })
+                                </div>
+                                <div class="form-group">
+                                    @Html.PasswordFor(m => m.Password, new { id = "password", placeholder = EasyTrade.Resources.Translator.Password, @class = "form-control input" })
+                                </div>
+                                <button type="submit" name="autenf" class="btn btn-info" style="float: right;"><i class="fa fa-sign-in"></i> @EasyTrade.Resources.Translator.Login</button>
+                            </section>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

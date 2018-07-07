@@ -1,0 +1,74 @@
+﻿@{ EasyTrade.Utils.BusinessLogic _bl = new EasyTrade.Utils.BusinessLogic(); }
+@helper GenerateLeftMenu(List<LeftMenuItem> leftMenuItems)
+{
+    foreach (var leftMenuItem in leftMenuItems)
+    {
+        <li>            
+            @if (leftMenuItem.Children.Any())
+            {
+                <a href="@leftMenuItem.Url"><i class="@leftMenuItem.IconClass"></i> @leftMenuItem.Name <span class="fa arrow"></span></a>
+                <ul class="nav @leftMenuItem.LevelClass">
+                    @GenerateLeftMenu(leftMenuItem.Children)
+                </ul>
+            }
+            else
+            {
+                <a href="@leftMenuItem.Url"><i class="@leftMenuItem.IconClass"></i> @leftMenuItem.Name</a>
+            }
+        </li>
+    }
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.title</title>    
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/ress/metisMenu.min.css" rel="stylesheet" />
+    <link href="~/Content/ress/sb-admin-2.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/ress/custom.css" rel="stylesheet" />    
+</head>
+<body>
+    <div id="wrapper">        
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="@Url.Action("index", "home")" style="margin-top: -10px;"><img src="~/Content/imgs/logo.png" width="40" height="40" /> EasyTrade</a>
+            </div>
+            <ul class="nav navbar-top-links navbar-right">                
+                <li style="cursor: pointer;">
+                    <a href="/account/logout">@EasyTrade.Resources.Translator.Logout <i class="fa fa-sign-out"></i></a>
+                </li>
+            </ul>   
+            
+            <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+            <script src="~/Scripts/bootstrap.min.js"></script>
+            <script src="~/Scripts/libs/metisMenu.min.js"></script>
+            <script src="~/Scripts/libs/sb-admin-2.js"></script>
+
+            <script src="~/Scripts/libs/angular.min.js"></script>
+            <script src="~/Scripts/libs/ui-bootstrap-tpls-1.3.2.min.js"></script>
+                   
+            <div class="navbar-default sidebar" role="navigation" style="padding-top: 30px;">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        @GenerateLeftMenu(_bl.GetLeftMenuItems())
+                    </ul>
+                </div>
+            </div>
+        </nav>        
+
+        <div id="page-wrapper">
+            @RenderBody()
+        </div>
+    </div>    
+</body>
+</html>
